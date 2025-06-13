@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Pets</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="d-flex around">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo amor & patas" width="90px" class="logo">
+        <nav class="cabeca d-flex between">
+            <a href="{{ url_for('index') }}"><b>Home</b></a>
+            <a href="{{ url_for('index') }}"><b>Quem Somos</b></a>
+            <a href="{{ url_for('index') }}"><b>Profissionais</b></a>
+            <a href="{{ url_for('index') }}"><b>Serviços</b></a>
+            <a href="{{ url_for('prelogin') }}"><b>Conta</b></a>
+        </nav>
+    </header>
+    <a href="{{ url_for('usuarios', codigo=usuario.codigo) }}" class="seta-esquerda"></a>
+    <main>
+        <section>
+            {% with mensagens = get_flashed_messages(with_categories=true) %}
+                {% if mensagens %}
+                    <div class="mensagens">
+                        {% for categoria, mensagem in mensagens %}
+                            {% if categoria == 'erro' %}
+                                <div class="mensagem-erro">
+                                    <p>{{ mensagem }}</p>
+                                </div>
+                            {% elif categoria == 'sucesso' %}
+                                <div class="mensagem-sucesso">
+                                    <p>{{ mensagem }}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </section>
+
+        <section class="titulocada">
+            <h1>Edite sua consulta na Amor & Patas!</h1>
+        </section>
+        <form method="POST" action="{{ url_for('editarAgendamento', codigo=codigo, cod_ag=cod_ag) }}">
+            <div class="fundoseusagenda">
+                <div class="imgdog">
+                    <img src="{{ url_for('static', filename='img/dog-agendamen.png') }}" alt="Cachorro olhando para fora" width="230px">
+                </div>
+                    <div class="diaagenda">
+                        <label>Dia:</label>
+                        <input type="date" name="dia" value="{{ agendamento.dia }}" required>
+                    </div>
+                    <br>
+                    <div class="horaagenda">
+                        <label>Horário:</label>
+                        <input type="time" name="horario" value="{{ agendamento.horario }}" required>
+                    </div>
+                    <br>
+                    <div>
+                        <label>Motivo:</label>
+                        <input type="text" name="motivo" value="{{ agendamento.motivo }}" required>
+                    </div>
+                <br>
+                    <button class="botaoagendame" type="submit">Salvar alterações</button>
+            </div>
+        </form>
+        <a class="voltaragenda" href="{{ url_for('usuarios', codigo=usuario.codigo) }}"><img class="seta" src="../static/img/seta.png" width="70px"></a>
+        </section>
+    </main>
+     <footer>
+        <section class="fun">
+            <h3>Funcionamento:</h3>
+            <div class="funcio d-flex">
+                <p>Domingo à Domingo - 24 horas 🕛 / ✦Atendemos também pelo celular de emergências!</p>
+                
+            </div>
+        </section>
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo">
+        <p><b>© 2025 - Todos os direitos reservados</b></p>
+    </footer>
+</body>
+</html>

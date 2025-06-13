@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+     <header class="d-flex around">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo amor & patas" width="90px" class="logo">
+        <nav class="cabeca d-flex between">
+            <a href="{{ url_for('index') }}"><b>Home</b></a>
+            <a href="{{ url_for('index') }}"><b>Quem Somos</b></a>
+            <a href="{{ url_for('index') }}"><b>Profissionais</b></a>
+            <a href="{{ url_for('index') }}"><b>Serviços</b></a>
+            <a href="{{ url_for('prelogin') }}"><b>Conta</b></a>
+        </nav>
+    </header>
+    <main>
+        <a href="{{ url_for('prelogin') }}" class="seta-esquerda"></a>
+        <section>
+            {% with mensagens = get_flashed_messages(with_categories=true) %}
+                {% if mensagens %}
+                    <div class="mensagens">
+                        {% for categoria, mensagem in mensagens %}
+                            {% if categoria == 'erro' %}
+                                <div class="mensagem-erro">
+                                    <p>{{ mensagem }}</p>
+                                </div>
+                            {% elif categoria == 'sucesso' %}
+                                <div class="mensagem-sucesso">
+                                    <p>{{ mensagem }}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </section>
+
+        <section class="titulocada">
+            <h1>Cadastre-se na Amor & Patas!</h1>
+        </section>
+        <section class="d-flex">
+            <div class="fundo">
+                <div class="tutor">
+                    <h1>Tutor</h1>
+                </div>
+            <div class="nome">
+                <form action="/cadastro" method="POST">
+                <label for="tutor">Nome:</label>
+                <input type="text" name="tutor" id="tutor" required minlength="3"><br><br>
+            </div>
+
+            <div class="emailcadas">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" required><br><br>
+            </div>
+
+            <div class="senhacadas">
+                <label for="senha">Senha:</label>
+                <input type="password" name="senha" id="senha" required minlength="8"><br><br>
+            </div>
+            <div>
+            <button type="submit">Cadastrar</button>
+            </div>
+            </form>
+        </div>
+        </section>
+            <div class="dogfora">
+                <img src="../static/img/dog-fora.png" alt="cahorro no cadastro" width="210px">
+            </div>
+    </main>
+    <footer>
+        <section class="fun">
+            <h3>Funcionamento:</h3>
+            <div class="funcio d-flex">
+                <p>Seg. à Sex.: 06:00 às 23:00</p>
+                <p>Sábados: 07:00 às 20:00</p>
+                <p>Dom. e feriados: 08:00 às 16:00</p>
+                <p><i> ✦Após expediente, atendemos pelo celular de emergência!</i></p>
+            </div>
+        </section>
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo">
+        <p><b>© 2025 - Todos os direitos reservados</b></p>
+    </footer>
+</body>
+</html>

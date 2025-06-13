@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conta</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="d-flex around">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo amor & patas" width="90px" class="logo">
+        <nav class="cabeca d-flex between">
+            <a href="{{ url_for('index') }}"><b>Home</b></a>
+            <a href="{{ url_for('index') }}"><b>Quem Somos</b></a>
+            <a href="{{ url_for('index') }}"><b>Profissionais</b></a>
+            <a href="{{ url_for('index') }}"><b>Serviços</b></a>
+            <a href="{{ url_for('prelogin') }}"><b>Conta</b></a>
+        </nav>
+    </header>
+
+    <main>
+        <a href="{{ url_for('lognvet') }}" class="seta-esquerda"></a>
+        <h2 class="bem">Bem vindo de volta, {{ codigo_vet }}!</h2>
+            <section>
+                {% with mensagens = get_flashed_messages(with_categories=true) %}
+                    {% if mensagens %}
+                        <div class="mensagens">
+                            {% for categoria, mensagem in mensagens %}
+                                {% if categoria == 'erro' %}
+                                    <div class="mensagem-erro">
+                                        <p>{{ mensagem }}</p>
+                                    </div>
+                                {% elif categoria == 'sucesso' %}
+                                    <div class="mensagem-sucesso">
+                                        <p>{{ mensagem }}</p>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </section>
+        <section class="org">
+            <div class="add">
+                <img src="../static/img/agendar1.png" alt="Imagem agendar" width="130px" height="150px">
+                <a href="{{ url_for('consultas_vet', codigo_vet=codigo_vet) }}" class="button">Ver Meus Agendamentos
+                </a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <section class="fun">
+            <h3>Funcionamento:</h3>
+            <div class="funcio d-flex">
+                <p>Domingo à Domingo - 24 horas 🕛 / ✦Atendemos também pelo celular de emergências!</p>
+                
+            </div>
+        </section>
+        <img src="../static/img/logo.png" alt="logo">
+        <p><b>© 2025 - Todos os direitos reservados</b></p>
+    </footer>
+</body>
+</html>

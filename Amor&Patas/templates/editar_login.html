@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Perfil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="d-flex around">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo amor & patas" width="90px" class="logo">
+        <nav class="cabeca d-flex between">
+            <a href="{{ url_for('index') }}"><b>Home</b></a>
+            <a href="{{ url_for('index') }}"><b>Quem Somos</b></a>
+            <a href="{{ url_for('index') }}"><b>Profissionais</b></a>
+            <a href="{{ url_for('index') }}"><b>Serviços</b></a>
+            <a href="{{ url_for('prelogin') }}"><b>Conta</b></a>
+        </nav>
+    </header>
+    <a href="{{ url_for('usuarios', codigo=usuario.codigo) }}" class="seta-esquerda"></a>
+    <main>
+        <section>
+            {% with mensagens = get_flashed_messages(with_categories=true) %}
+                {% if mensagens %}
+                    <div class="mensagens">
+                        {% for categoria, mensagem in mensagens %}
+                            {% if categoria == 'erro' %}
+                                <div class="mensagem-erro">
+                                    <p>{{ mensagem }}</p>
+                                </div>
+                            {% elif categoria == 'sucesso' %}
+                                <div class="mensagem-sucesso">
+                                    <p>{{ mensagem }}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </section>
+        <h2 class="bem">Editar Perfil</h2>
+        <form method="POST" action="{{ url_for('editar_login') }}" class="fundoeditar">
+            <input type="hidden" name="codigo" value="{{ usuario['codigo'] }}">
+
+            <label for="nomeusuario" class="nomeditar">Nome:</label>
+            <input type="text" name="nomenovo" value="{{ usuario.nome }}" required><br>
+
+            <label for="emailusuario" class="emaileditar">Email:</label>
+            <input type="email" name="emailnovo" value="{{ usuario.email }}" required><br>
+
+            <label for="senhausuario" class="senhaeditar">Senha:</label>
+            <input type="password" name="senhanova" value="{{ usuario.senha }}" required><br>
+
+            <button type="submit" class="alteracao">Salvar Alterações</button>
+        </form>
+    </main>
+    <footer>
+        <section class="fun">
+            <h3>Funcionamento:</h3>
+            <div class="funcio d-flex">
+                <p>Domingo à Domingo - 24 horas 🕛 / ✦Atendemos também pelo celular de emergências!</p>
+                
+            </div>
+        </section>
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo">
+        <p><b>© 2025 - Todos os direitos reservados</b></p>
+    </footer>
+</body>
+</html>

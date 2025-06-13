@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Pets</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="d-flex around">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo amor & patas" width="90px" class="logo">
+        <nav class="cabeca d-flex between">
+            <a href="{{ url_for('index') }}"><b>Home</b></a>
+            <a href="{{ url_for('index') }}"><b>Quem Somos</b></a>
+            <a href="{{ url_for('index') }}"><b>Profissionais</b></a>
+            <a href="{{ url_for('index') }}"><b>Serviços</b></a>
+            <a href="{{ url_for('prelogin') }}"><b>Conta</b></a>
+        </nav>
+    </header>
+
+    <main>
+        <a href="{{ url_for('usuarios', codigo=usuario.codigo) }}" class="seta-esquerda"></a>
+        <h2 class="bem">Seus pets cadastrados, {{ usuario.nome }}!</h2>
+        <div class="botaomeuspets">
+            <a href="{{ url_for('adicionarpet', codigo=usuario['codigo']) }}">Adicionar pet</a>
+            </div>
+            <section>
+                {% with mensagens = get_flashed_messages(with_categories=true) %}
+                    {% if mensagens %}
+                        <div class="mensagens">
+                            {% for categoria, mensagem in mensagens %}
+                                {% if categoria == 'erro' %}
+                                    <div class="mensagem-erro">
+                                        <p>{{ mensagem }}</p>
+                                    </div>
+                                {% elif categoria == 'sucesso' %}
+                                    <div class="mensagem-sucesso">
+                                        <p>{{ mensagem }}</p>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </section>
+        <div class="coluna">
+            <div class="pets-container">
+                {% for codigopet, pet in usuario.pets.items() %}
+                    <div class="pet-card">
+                        <p><strong>Nome:</strong> {{ pet.nome }}</p>
+                        <p><strong>Raça:</strong> {{ pet.raca }}</p>
+                        <p><strong>Peso:</strong> {{ pet.peso }}</p>
+                        <p><strong>Idade:</strong> {{ pet.idade }}</p>
+
+                        <a class="editarbotao" href="{{ url_for('abrir_editarpet', codigo=usuario.codigo, codigopet=codigopet) }}">Editar</a>
+
+                        <form action="{{ url_for('excluirpet', codigo=usuario.codigo, codigopet=codigopet) }}" method="post">
+                            <button class="botaoexcluirpet" type="submit" onclick="return confirm('Tem certeza que deseja excluir este pet?')">Excluir</button>
+                        </form>
+
+                    </div>
+                {% else %}
+                    <p class="nao">❗ Nenhum pet cadastrado ainda</p>
+                {% endfor %}
+        </div>
+            </div>
+            </div>
+    </main>
+    <footer>
+        <section class="fun">
+            <h3>Funcionamento:</h3>
+            <div class="funcio d-flex">
+                <p>Domingo à Domingo - 24 horas 🕛 / ✦Atendemos também pelo celular de emergências!</p>
+                
+            </div>
+        </section>
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo">
+        <p><b>© 2025 - Todos os direitos reservados</b></p>
+    </footer>
+</body>
+</html>

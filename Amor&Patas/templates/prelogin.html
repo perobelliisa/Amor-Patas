@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identificação</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="d-flex around">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo amor & patas" width="90px" class="logo">
+        <nav class="cabeca d-flex between">
+            <a href="{{ url_for('index') }}"><b>Home</b></a>
+            <a href="{{ url_for('index') }}"><b>Quem Somos</b></a>
+            <a href="{{ url_for('index') }}"><b>Profissionais</b></a>
+            <a href="{{ url_for('index') }}"><b>Serviços</b></a>
+            <a href="{{ url_for('prelogin') }}"><b>Conta</b></a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="acao">
+            <h1> Escolha qual ação deseja realizar:</h1>
+        </section>
+
+        <section class="d-flex">
+            <div class="vete">
+                <img src="static/img/catvet.png" alt="Gatinho em cima do botão" width="190px">
+                <a href="{{ url_for('lognvet') }}"><b>Sou veterinário</b></a>
+            </div>
+
+            <div class="cliente">
+                <img src="static/img/twodog.png" alt="Dois cachorro sorrindo" width="150px">
+                <a href="{{ url_for('login') }}"><b>Já sou cliente</b></a>
+            </div>
+
+            <div class="cadas">
+                <img src="static/img/dogoculos.png" alt="Cachorrinho de óculos" width="150px">
+                <a href="{{ url_for('cadastro') }}"><b>Quero me cadastrar</b></a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <section class="fun">
+            <h3>Funcionamento:</h3>
+            <div class="funcio d-flex">
+                <p>Domingo à Domingo - 24 horas 🕛 / ✦Atendemos também pelo celular de emergências!</p>
+                
+            </div>
+        </section>
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo">
+        <p><b>© 2025 - Todos os direitos reservados</b></p>
+    </footer>
+</body>
+</html>

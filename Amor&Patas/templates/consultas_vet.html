@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consultas do Veterinário</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="d-flex around">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo amor & patas" width="90px" class="logo">
+        <nav class="cabeca d-flex between">
+            <a href="{{ url_for('index') }}"><b>Home</b></a>
+            <a href="{{ url_for('index') }}"><b>Quem Somos</b></a>
+            <a href="{{ url_for('index') }}"><b>Profissionais</b></a>
+            <a href="{{ url_for('index') }}"><b>Serviços</b></a>
+            <a href="{{ url_for('prelogin') }}"><b>Conta</b></a>
+        </nav>
+    </header>
+    <a href="{{ url_for('contavet') }}" class="seta-esquerda"></a>
+    <main class="man">
+        <h1>Meus Agendamentos</h1>
+        <section>
+<table class="tabela-agendamentos">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Paciente</th>
+            <th>Pet</th>
+            <th>Motivo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for consulta in consultas %}
+        <tr class="consulta">
+            <td>{{ consulta.data }}</td>
+            <td>{{ consulta.hora }}</td>
+            <td>{{ consulta.user_nome }}</td>
+            <td>{{ consulta.pet_nome }}</td>
+            <td>{{ consulta.motivo }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+          </section>
+            <section>
+                {% with mensagens = get_flashed_messages(with_categories=true) %}
+                    {% if mensagens %}
+                        <div class="mensagens">
+                            {% for categoria, mensagem in mensagens %}
+                                {% if categoria == 'erro' %}
+                                    <div class="mensagem-erro">
+                                        <p>{{ mensagem }}</p>
+                                    </div>
+                                {% elif categoria == 'sucesso' %}
+                                    <div class="mensagem-sucesso">
+                                        <p>{{ mensagem }}</p>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <div class="d-flex">
+                    <div class="botaomedi">
+                        <a href="{{ url_for('calculadora_dose') }}">Calcular Medicamento</a>
+                    </div>
+                    <div class="botaosoro">
+                        <a href="{{ url_for('calculadora_desitratacao') }}">Calcular Soro</a>
+                    </div>
+                </div>
+            </section> <br>
+            
+
+    </main>
+    
+    <footer>
+        <section class="fun">
+            <h3>Funcionamento:</h3>
+            <div class="funcio d-flex">
+                <p>Domingo à Domingo - 24 horas 🕛 / ✦Atendemos também pelo celular de emergências!</p>
+                
+            </div>
+        </section>
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo amor & patas" width="90px" class="logo">
+        <p><b>© 2025 - Todos os direitos reservados</b></p>
+    </footer>
+</body>
+</html>
